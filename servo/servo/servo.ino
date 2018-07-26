@@ -55,38 +55,69 @@ void led(int timeInMiliseconds) { // method to have a LED on for a determinated 
 
 void rotate(char servo, char direction, int angle) {
 	
-	int calculatedMicroseconds = ;//la función de la leche que convierte "int angle" a seconds teniendo en cuenta "char direction"
-	
+	int calculatedMiliseconds = ; //to-do mathematic method that turns "int angle" into miliseconds
+	int speed;
+
+
+	switch (direction)
+	{
+	case 'P':
+		speed = 1600;
+		break;
+
+	case 'N':
+		speed = 1400;
+		break;
+	default:
+		Serial.write("UNKNOWN DIRECTION ERROR");
+		for (int a = 0; a < 10; a++) {
+			led(100);
+			delay(100);
+		}
+		break;
+	}
+
+
 	switch (servo)
 	{
 	case '1': 
 		digitalWrite(13, HIGH);
 		digitalWrite(13, LOW);
-		myservo1.writeMicroseconds(calculatedMicroseconds);
+		myservo1.writeMicroseconds(speed);
+		delay(calculatedMiliseconds);
+		myservo1.writeMicroseconds(1500);
 		break;
 
 	case '2':
 		digitalWrite(13, HIGH);
 		digitalWrite(13, LOW);
-		myservo2.writeMicroseconds(calculatedMicroseconds);
+		myservo2.writeMicroseconds(speed);
+		delay(calculatedMiliseconds);
+		myservo2.writeMicroseconds(1500);
 		break;
 
 	case '3':
 		digitalWrite(13, HIGH);
 		digitalWrite(13, LOW);
-		myservo3.writeMicroseconds(calculatedMicroseconds);
+		myservo3.writeMicroseconds(speed);
+		delay(calculatedMiliseconds);
+		myservo3.writeMicroseconds(1500);
 		break;
 
 	case '4':
 		digitalWrite(13, HIGH);
 		digitalWrite(13, LOW);
-		myservo4.writeMicroseconds(calculatedMicroseconds);
+		myservo4.writeMicroseconds(speed);
+		delay(calculatedMiliseconds);
+		myservo4.writeMicroseconds(1500);
 		break;
 
 	case '5':
 		digitalWrite(13, HIGH);
 		digitalWrite(13, LOW);
-		myservo5.writeMicroseconds(calculatedMicroseconds);
+		myservo5.writeMicroseconds(speed);
+		delay(calculatedMiliseconds);
+		myservo5.writeMicroseconds(1500);
 		break;
 
 	
@@ -96,6 +127,7 @@ void rotate(char servo, char direction, int angle) {
 			led(100);
 			delay(100);
 		}
+		break;
 	}
 }
 
