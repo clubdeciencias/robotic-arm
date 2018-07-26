@@ -1,6 +1,6 @@
 #include <Servo.h>
 #include <SoftwareSerial.h>
-#include <ArduinoJson-v6.2.3-beta.h> //JSON parsing library
+#include "ArduinoJson-v5.13.2.h" //JSON parsing library
 
 Servo myservo1;
 Servo myservo2;
@@ -16,8 +16,8 @@ int OutServo5 = 11; // YET TO DECIDE A PIN
 
 int vel = 0;
 
+DynamicJsonBuffer jsonBuffer;
 
-// the setup function runs once when you press reset or power the board
 void setup() {
 	myservo1.attach(OutServo1);
 	myservo2.attach(OutServo2);
@@ -29,16 +29,17 @@ void setup() {
 
 	pinMode(12, OUTPUT);
 	pinMode(13, OUTPUT);
-
-	const size_t bufferSize = JSON_OBJECT_SIZE(3) + 40;
-	DynamicJsonBuffer jsonBuffer(bufferSize);
+	
 }
-// the loop function runs over and over again until power down or reset
 void loop() {
 
 	if (Serial.available()) {
-		const char* json = = Serial.read(); //read JSON input and store it
+		char json = Serial.read(); //read JSON input and store it
 		JsonObject& root = jsonBuffer.parseObject(json); //Parse JSON
+		if (!root.success()) {
+			Serial.write("parseObject() failed");
+			return;
+		}
 		char servo = root["servo"]; // "servo" char
 		char direction = root["direction"]; // "direction" char
 		int angle = root["angle"]; // "angle" int
@@ -55,7 +56,7 @@ void led(int timeInMiliseconds) { // method to have a LED on for a determinated 
 
 void rotate(char servo, char direction, int angle) {
 	
-	int calculatedMiliseconds = ; //to-do mathematic method that turns "int angle" into miliseconds
+	int calculatedMiliseconds; //to-do mathematic method that turns "int angle" into miliseconds
 	int speed;
 
 
