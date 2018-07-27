@@ -26,8 +26,8 @@ void setup() {
 
 	Serial.begin(9600);
 
-	pinMode(12, OUTPUT);
-	pinMode(13, OUTPUT);
+	//pinMode(12, OUTPUT);
+	//pinMode(13, OUTPUT);
 	pinMode(LED_BUILTIN, OUTPUT);
 
 	StaticJsonBuffer<200> jsonBuffer;
@@ -37,11 +37,15 @@ void setup() {
 void loop() {
 
 	if (Serial.available()) {
-		char json = Serial.read(); //read JSON input and store it
 		DynamicJsonBuffer jsonBuffer;
-		JsonObject& root = jsonBuffer.parseObject(json); //Parse JSON
+		JsonObject& root = jsonBuffer.parseObject(Serial); //Parse JSON
 		if (!root.success()) {
 			Serial.write("parseObject() failed");
+			for (int a = 0; a < 10; a++) {
+				led(100);
+				delay(100);
+
+			}
 			return;
 		}
 		char servo = root["servo"]; // "servo" char
@@ -136,146 +140,3 @@ void rotate(char servo, char direction, int angle) {
 		break;
 	}
 }
-
-/*
-void giros() {
-	while (rotating) {
-		if (Serial.available()) {
-			delay(200);
-			servo = Serial.read();
-			digitalWrite(13, HIGH);
-			if (servo == '2')
-			{
-				digitalWrite(13, LOW);
-				myservo1.writeMicroseconds(1700);
-				servo = 'Z';
-			}
-			if (servo == '3')
-			{
-				myservo1.writeMicroseconds(1300);
-				digitalWrite(13, HIGH);
-				servo = 'Z';
-
-			}
-			if (servo == '1')
-			{
-				myservo1.writeMicroseconds(1500);
-				digitalWrite(13, LOW);
-				servo = 'Z';
-			}
-			if (servo == 'E') {
-				myservo1.writeMicroseconds(1500);
-				rotating = false;
-			}
-			else {
-				Serial.write("Error, introduce un comando válido. 1,2 o 3");
-			}
-		}
-	}
-}
-void giros2() {
-	while (rotating) {
-		if (Serial.available()) {
-			delay(200);
-			servo = Serial.read();
-			digitalWrite(13, HIGH);
-			if (servo == '2')
-			{
-				digitalWrite(13, LOW);
-				myservo2.writeMicroseconds(1700);
-				servo = 'Z';
-			}
-			if (servo == '3')
-			{
-				myservo2.writeMicroseconds(1300);
-				digitalWrite(13, HIGH);
-				servo = 'Z';
-
-			}
-			if (servo == '1')
-			{
-				myservo2.writeMicroseconds(1500);
-				digitalWrite(13, LOW);
-				servo = 'Z';
-			}
-			if (servo == 'E') {
-				myservo2.writeMicroseconds(1500);
-				rotating = false;
-			}
-			else {
-				Serial.write("Error, introduce un comando válido. 1,2 o 3");
-			}
-		}
-	}
-}
-void giros3() {
-	while (rotating) {
-		if (Serial.available()) {
-			delay(200);
-			servo = Serial.read();
-			digitalWrite(13, HIGH);
-			if (servo == '2')
-			{
-				digitalWrite(13, LOW);
-				myservo3.writeMicroseconds(1700);
-				servo = 'Z';
-			}
-			if (servo == '3')
-			{
-				myservo3.writeMicroseconds(1300);
-				digitalWrite(13, HIGH);
-				servo = 'Z';
-
-			}
-			if (servo == '1')
-			{
-				myservo3.writeMicroseconds(1500);
-				digitalWrite(13, LOW);
-				servo = 'Z';
-			}
-			if (servo == 'E') {
-				myservo3.writeMicroseconds(1500);
-				rotating = false;
-			}
-			else {
-				Serial.write("Error, introduce un comando válido. 1,2 o 3");
-			}
-		}
-	}
-}
-void giros4() {
-	while (rotating) {
-		if (Serial.available()) {
-			delay(200);
-			servo = Serial.read();
-			digitalWrite(13, HIGH);
-			if (servo == '2')
-			{
-				digitalWrite(13, LOW);
-				myservo4.writeMicroseconds(1700);
-				servo = 'Z';
-			}
-			if (servo == '3')
-			{
-				myservo4.writeMicroseconds(1300);
-				digitalWrite(13, HIGH);
-				servo = 'Z';
-
-			}
-			if (servo == '1')
-			{
-				myservo4.writeMicroseconds(1500);
-				digitalWrite(13, LOW);
-				servo = 'Z';
-			}
-			if (servo == 'E') {
-				myservo4.writeMicroseconds(1500);
-				rotating = false;
-			}
-			else {
-				Serial.write("Error, introduce un comando válido. 1,2 o 3");
-			}
-		}
-	}
-}
-*/
