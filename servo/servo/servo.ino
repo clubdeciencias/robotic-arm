@@ -16,7 +16,6 @@ int OutServo5 = 11; // YET TO DECIDE A PIN
 
 int vel = 0;
 
-DynamicJsonBuffer jsonBuffer;
 
 void setup() {
 	myservo1.attach(OutServo1);
@@ -29,12 +28,17 @@ void setup() {
 
 	pinMode(12, OUTPUT);
 	pinMode(13, OUTPUT);
+	pinMode(LED_BUILTIN, OUTPUT);
+
+	StaticJsonBuffer<200> jsonBuffer;
 	
+
 }
 void loop() {
 
 	if (Serial.available()) {
 		char json = Serial.read(); //read JSON input and store it
+		DynamicJsonBuffer jsonBuffer;
 		JsonObject& root = jsonBuffer.parseObject(json); //Parse JSON
 		if (!root.success()) {
 			Serial.write("parseObject() failed");
@@ -44,14 +48,15 @@ void loop() {
 		char direction = root["direction"]; // "direction" char
 		int angle = root["angle"]; // "angle" int
 		rotate(servo, direction, angle); //execute rotation with the given data. 
-		
+		jsonBuffer.clear();
+
 	}
 }
 
 void led(int timeInMiliseconds) { // method to have a LED on for a determinated time in miliseconds
-	digitalWrite(12, HIGH);
-	delay(timeInMiliseconds);
-	digitalWrite(12, LOW);
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(timeInMiliseconds);                       // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
 }
 
 void rotate(char servo, char direction, int angle) {
