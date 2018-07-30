@@ -26,8 +26,8 @@ void setup() {
 
 	Serial.begin(9600);
 
-	//pinMode(12, OUTPUT);
-	//pinMode(13, OUTPUT);
+	pinMode(12, OUTPUT);
+	pinMode(13, OUTPUT);
 	pinMode(LED_BUILTIN, OUTPUT);
 
 	StaticJsonBuffer<200> jsonBuffer;
@@ -40,7 +40,7 @@ void loop() {
 		DynamicJsonBuffer jsonBuffer;
 		JsonObject& root = jsonBuffer.parseObject(Serial); //Parse JSON
 		if (!root.success()) {
-			Serial.write("parseObject() failed");
+			Serial.write("parseObject() failed \n");
 			for (int a = 0; a < 10; a++) {
 				led(100);
 				delay(100);
@@ -48,11 +48,14 @@ void loop() {
 			}
 			return;
 		}
-		char servo = root["servo"]; // "servo" char
-		char direction = root["direction"]; // "direction" char
+		int servo = root["servo"]; // "servo" char
+		int direction = root["direction"]; // "direction" char
 		int angle = root["angle"]; // "angle" int
+		Serial.println(servo);
+		Serial.println(direction);
 		rotate(servo, direction, angle); //execute rotation with the given data. 
 		jsonBuffer.clear();
+		
 
 	}
 }
@@ -63,24 +66,24 @@ void led(int timeInMiliseconds) { // method to have a LED on for a determinated 
   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
 }
 
-void rotate(char servo, char direction, int angle) {
+void rotate(int servo, int direction, int angle) {
 	
 	int calculatedMiliseconds; //to-do mathematic method that turns "int angle" into miliseconds
-	int speed;
+	int speed; 
 
 
 	switch (direction)
 	{
-	case 'P':
+	case 1:
 		speed = 1600;
 		break;
 
-	case 'N':
+	case 0:
 		speed = 1400;
 		break;
 	default:
-		Serial.write("UNKNOWN DIRECTION ERROR");
-		for (int a = 0; a < 10; a++) {
+		Serial.println("UNKNOWN DIRECTION ERROR");
+		for (int a = 0; a < 5; a++) {
 			led(100);
 			delay(100);
 		}
@@ -90,41 +93,32 @@ void rotate(char servo, char direction, int angle) {
 
 	switch (servo)
 	{
-	case '1': 
-		digitalWrite(13, HIGH);
-		digitalWrite(13, LOW);
+	case 1: 
+		 
 		myservo1.writeMicroseconds(speed);
 		delay(calculatedMiliseconds);
 		myservo1.writeMicroseconds(1500);
 		break;
 
-	case '2':
-		digitalWrite(13, HIGH);
-		digitalWrite(13, LOW);
+	case 2:
 		myservo2.writeMicroseconds(speed);
 		delay(calculatedMiliseconds);
 		myservo2.writeMicroseconds(1500);
 		break;
 
-	case '3':
-		digitalWrite(13, HIGH);
-		digitalWrite(13, LOW);
+	case 3:
 		myservo3.writeMicroseconds(speed);
 		delay(calculatedMiliseconds);
 		myservo3.writeMicroseconds(1500);
 		break;
 
-	case '4':
-		digitalWrite(13, HIGH);
-		digitalWrite(13, LOW);
+	case 4:
 		myservo4.writeMicroseconds(speed);
 		delay(calculatedMiliseconds);
 		myservo4.writeMicroseconds(1500);
 		break;
 
-	case '5':
-		digitalWrite(13, HIGH);
-		digitalWrite(13, LOW);
+	case 5:
 		myservo5.writeMicroseconds(speed);
 		delay(calculatedMiliseconds);
 		myservo5.writeMicroseconds(1500);
@@ -132,7 +126,7 @@ void rotate(char servo, char direction, int angle) {
 
 	
 	default:
-		Serial.write("UNKNOWN SERVO ERROR");
+		Serial.println("UNKNOWN SERVO ERROR");
 		for (int a = 0; a < 10; a++) {
 			led(100);
 			delay(100);
