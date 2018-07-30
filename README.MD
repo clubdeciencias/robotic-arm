@@ -24,7 +24,7 @@ Clone the project and flash the servo.ino file.
 Orders are passed to the serial as a JSON with 3 variables
 
 ```
-{"servo":1,"direction":"P","angle":50}
+{"servo":1,"direction":"1","angle":50}
 ```
 
 ### servo
