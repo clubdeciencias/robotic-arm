@@ -53,7 +53,7 @@ Orders are passed to the serial as a JSON with 3 variables
 * **André Lorenzo Torres** - *Initial coding* - [andrelorenzo](https://github.com/andrelorenzo)
 * **Alberto Zugazagoitia** - *JSON parsing and code debugging* - [zugazagoitia](https://github.com/zugazagoitia)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/clubdeciencias/robotic-arm/graphs/contributors) who participated in this project.
 
 ## License
 
