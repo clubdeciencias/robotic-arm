@@ -50,8 +50,8 @@ Orders are passed to the serial as a JSON with 3 variables
 
 ## Authors
 
+* **André Lorenzo Torres** - *Initial coding* - [andrelorenzo](https://github.com/andrelorenzo)
 * **Alberto Zugazagoitia** - *JSON parsing and code debugging* - [zugazagoitia](https://github.com/zugazagoitia)
-* **André Lorenzo Torres** - *JSON parsing and code debugging* - [andrelorenzo](https://github.com/andrelorenzo)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
